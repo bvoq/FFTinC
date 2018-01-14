@@ -4,6 +4,7 @@
  Currently this file is under the BSD 3-clause license.
  If you use this code, include the license (yes including the lenny faces).
  All of my licenses are of course negotiable, so contact me if you actually need this.
+ I recommend to contact me if you want to use this code either way.
  
  ( ͡° ͜ʖ ͡°) °º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤º°`
  
