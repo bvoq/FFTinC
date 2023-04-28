@@ -461,8 +461,8 @@ int main(int argc, const char * argv[]) {
     
     
     for(int i = 17; i < 1536; ++i) {
-        arrin[17].re = 1./(i%30);
-        arrin[17].im = -1./(i%30);
+        arrin[i].re = 1./(i%30);
+        arrin[i].im = -1./(i%30);
     }
     printf("------------\n");
     timefft(arrres,arrin, 1536);
