@@ -319,13 +319,19 @@ static void ifft(FComplex *out, FComplex *in, int size) {  // Perform out = FFT(
 }
 
 // Timing of fft/ifft can be done using the methods timefft/timeifft. Currently this uses clock_t. Alternatively use the following instruction for x86:
-
 static unsigned long long rdtscl(void) {
-    unsigned int lo, hi;
+#if defined(__arm__) || defined(__aarch64__)
+   struct timespec ts;
+   clock_gettime(CLOCK_REALTIME, &ts);
+   unsigned long long val = ts.tv_sec;
+   val = val * 1000000000ULL;
+   return val + ts.tv_nsec;
+   #else
+   unsigned int lo, hi;
     __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
     return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32 );
+   #endif
 }
-
 
 extern void timefft(FComplex *out, FComplex *in, int size) {  // Perform out = FFT(in)
     if(size <= 0) return;
@@ -461,8 +467,8 @@ int main(int argc, const char * argv[]) {
     
     
     for(int i = 17; i < 1536; ++i) {
-        arrin[17].re = 1./(i%30);
-        arrin[17].im = -1./(i%30);
+        arrin[i].re = ((i%30)-15)/30;
+        arrin[i].im = (19-(i%37))/30;
     }
     printf("------------\n");
     timefft(arrres,arrin, 1536);
